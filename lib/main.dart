@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home_screen.dart';
+import 'package:handy_wow/utils/routes.dart';
+import 'package:handy_wow/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My Wow App',
+      initialRoute: Routes.home,
+      onGenerateRoute: Routes.generateRoute,
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),

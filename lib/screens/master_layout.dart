@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
 
-import 'package:handy_wow/screens/home_screen.dart';
-import 'package:handy_wow/screens/arena_screen.dart';
-import 'package:handy_wow/screens/mythic_plus_screen.dart';
+import 'package:handy_wow/utils/routes.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BottomAppBar(
+      color: Theme
+          .of(context)
+          .primaryColor,
+      shape: const CircularNotchedRectangle(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.home);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.emoji_events),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.arena);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.star),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.mythicPlus);
+            },
+          ),
+        ],
       ),
-      home: const MasterLayout(
-        title: 'Home',
-        body: HomeScreen(),
-      ),
-      routes: {
-        '/home': (context) => const MasterLayout(
-          title: 'Home',
-          body: HomeScreen(),
-        ),
-        '/arena': (context) => const MasterLayout(
-            title: 'Arena',
-            body: ArenaScreen(),
-        ),
-        '/mythic_plus': (context) => const MasterLayout(
-          title: 'Mythic Plus',
-          body: MythicPlusScreen(),
-        ),
-      },
     );
   }
 }
@@ -66,49 +69,7 @@ class MasterLayout extends StatelessWidget
           child: body,
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(onPressed: () {
-                Navigator.pushNamed(context, '/home');
-              },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.home),
-                      Text('Home'),
-                    ],
-                  ),
-              ),
-              TextButton(onPressed: () {
-                Navigator.pushNamed(context, '/arena');
-              },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.sports_hockey),
-                    Text('Arena'),
-                  ],
-                ),
-              ),
-              TextButton(onPressed: () {
-                Navigator.pushNamed(context, '/mythic+');
-              },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.local_fire_department),
-                    Text('Mythic+'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: const BottomNavigation(),
     );
   }
 }
